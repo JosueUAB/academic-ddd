@@ -11,3 +11,5 @@ export { IconBook } from './IconBook';
 export { IconSun } from './IconSun';
 export { IconMoon } from './IconMoon';
 export { IconClose } from './IconClose';
+export { IconBuilding } from './IconBuilding';
+export { IconChartBar } from './IconChartBar';

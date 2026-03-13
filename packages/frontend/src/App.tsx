@@ -9,6 +9,7 @@ import { CursosPage } from './components/pages/CursosPage';
 import { HorariosPage } from './components/pages/HorariosPage';
 import { MiPerfilPage } from './components/pages/MiPerfilPage';
 import { MisClasesPage } from './components/pages/MisClasesPage';
+import { PlaceholderPage } from './components/pages/PlaceholderPage';
 
 function App() {
   return (
@@ -32,6 +33,18 @@ function App() {
           <Route path="/horarios" element={<HorariosPage />} />
           <Route path="/mi-perfil" element={<MiPerfilPage />} />
           <Route path="/mis-clases" element={<MisClasesPage />} />
+          <Route path="/mis-calificaciones" element={<PlaceholderPage title="Mis calificaciones" />} />
+          <Route path="/profesores" element={<PlaceholderPage title="Profesores" />} />
+          <Route path="/periodos-academicos" element={<PlaceholderPage title="Períodos académicos" />} />
+          <Route path="/programas" element={<PlaceholderPage title="Programas" />} />
+          <Route path="/departamentos" element={<PlaceholderPage title="Departamentos" />} />
+          <Route path="/oferta-cursos" element={<PlaceholderPage title="Oferta de cursos" />} />
+          <Route path="/calificaciones" element={<PlaceholderPage title="Calificaciones" />} />
+          <Route path="/prerrequisitos" element={<PlaceholderPage title="Prerrequisitos" />} />
+          <Route path="/plan-estudios" element={<PlaceholderPage title="Plan de estudios" />} />
+          <Route path="/aulas" element={<PlaceholderPage title="Aulas" />} />
+          <Route path="/inscripciones" element={<PlaceholderPage title="Inscripciones" />} />
+          <Route path="/asistencia" element={<PlaceholderPage title="Asistencia" />} />
         </Route>
       </Routes>
     </BrowserRouter>

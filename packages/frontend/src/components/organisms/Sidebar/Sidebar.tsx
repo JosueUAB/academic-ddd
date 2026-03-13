@@ -8,6 +8,9 @@ import {
   IconUser,
   IconClipboard,
   IconAcademicCap,
+  IconBook,
+  IconBuilding,
+  IconChartBar,
   IconLogout,
   IconClose,
 } from '../../../assets/icons';
@@ -24,6 +27,9 @@ const icons = {
   user: <IconUser className={iconClass} />,
   clipboard: <IconClipboard className={iconClass} />,
   academicCap: <IconAcademicCap className={iconClass} />,
+  book: <IconBook className={iconClass} />,
+  building: <IconBuilding className={iconClass} />,
+  chartBar: <IconChartBar className={iconClass} />,
   logout: <IconLogout className={iconClass} />,
 };
 
@@ -33,15 +39,29 @@ const MENU_BY_ROLE: Record<Role, MenuItem[]> = {
     { to: '/estudiantes', label: 'Estudiantes', icon: icons.academic },
     { to: '/cursos', label: 'Cursos', icon: icons.courses },
     { to: '/horarios', label: 'Horarios', icon: icons.calendar },
+    { to: '/profesores', label: 'Profesores', icon: icons.academicCap },
+    { to: '/periodos-academicos', label: 'Períodos académicos', icon: icons.calendar },
+    { to: '/programas', label: 'Programas', icon: icons.book },
+    { to: '/departamentos', label: 'Departamentos', icon: icons.building },
+    { to: '/oferta-cursos', label: 'Oferta de cursos', icon: icons.courses },
+    { to: '/calificaciones', label: 'Calificaciones', icon: icons.chartBar },
+    { to: '/prerrequisitos', label: 'Prerrequisitos', icon: icons.book },
+    { to: '/plan-estudios', label: 'Plan de estudios', icon: icons.book },
+    { to: '/aulas', label: 'Aulas', icon: icons.building },
+    { to: '/inscripciones', label: 'Inscripciones', icon: icons.clipboard },
+    { to: '/asistencia', label: 'Asistencia', icon: icons.clipboard },
   ],
   STUDENT: [
     { to: '/mi-perfil', label: 'Mi perfil', icon: icons.user },
     { to: '/inscripcion-cursos', label: 'Inscripción', icon: icons.clipboard },
     { to: '/mis-clases', label: 'Mis clases', icon: icons.academicCap },
+    { to: '/mis-calificaciones', label: 'Mis calificaciones', icon: icons.chartBar },
   ],
   TEACHER: [
     { to: '/mi-perfil', label: 'Mi perfil', icon: icons.user },
     { to: '/mis-clases', label: 'Mis clases', icon: icons.academicCap },
+    { to: '/calificaciones', label: 'Calificaciones', icon: icons.chartBar },
+    { to: '/asistencia', label: 'Asistencia', icon: icons.clipboard },
   ],
 };
 
