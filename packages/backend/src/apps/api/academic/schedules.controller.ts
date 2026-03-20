@@ -10,8 +10,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { ScheduleService } from '../../../contexts/academic/schedule/application/schedule.service';
-import { ScheduleSortField } from 'src/contexts/academic/schedule/domain/schedule.repository';
-import { CreateScheduleDTO, UpdateScheduleDTO } from 'src/contexts/academic/schedule/application/dtos';
+import { ScheduleSortField } from '../../../contexts/academic/schedule/domain/schedule.repository';
+import { CreateScheduleDTO, UpdateScheduleDTO } from '../../../contexts/academic/schedule/application/dtos';
 
 const SORT_FIELDS: ScheduleSortField[] = ['slot', 'createdAt', 'courseName'];
 

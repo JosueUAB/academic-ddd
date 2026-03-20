@@ -69,7 +69,7 @@ export class ScheduleService {
     if (!newSlotTime) return;
 
     const overlapping = allSchedules.find(s => {
-      if (s.courseId !== courseId || (!excludeId || s.id === excludeId)) return false;
+      if (s.courseId !== courseId || (excludeId && s.id === excludeId)) return false;
       if (this.getSlotDay(s.slot) !== newSlotDay) return false;
       
       const existingTime = this.parseSlotTime(s.slot);
