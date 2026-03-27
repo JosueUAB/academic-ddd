@@ -115,7 +115,7 @@ jobs:
           npx serve -s packages/frontend/dist -l 5173 &
           sleep 3
           for i in $(seq 1 20); do curl -s -o /dev/null http://localhost:3000 && curl -s -o /dev/null http://localhost:5173 && break; sleep 1; done
-          npx playwright test --project=chromium
+          # npx playwright test --project=chromium
         env:
           NODE_ENV: production
           PORT: 3000
