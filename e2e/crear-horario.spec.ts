@@ -44,8 +44,9 @@ test.describe('Creación de horario (e2e)', () => {
     await expect(page).toHaveURL(/\/horarios\/registro/);
     await expect(page.getByRole('heading', { name: /agregar horario/i })).toBeVisible();
 
-    // Seleccionar primer curso disponible
+    // Seleccionar primer curso y aula disponible
     await page.getByLabel(/curso/i).selectOption({ index: 1 });
+    await page.getByLabel(/aula/i).selectOption({ index: 1 });
 
     await page.getByLabel(/día de la semana/i).selectOption(day);
     await page.getByLabel(/hora de inicio/i).fill(startTime);
@@ -77,8 +78,9 @@ test.describe('Creación de horario (e2e)', () => {
     await page.goto('/horarios/registro');
     await expect(page.getByRole('heading', { name: /agregar horario/i })).toBeVisible();
 
-    // Seleccionar primer curso disponible
+    // Seleccionar primer curso y aula disponible
     await page.getByLabel(/curso/i).selectOption({ index: 1 });
+    await page.getByLabel(/aula/i).selectOption({ index: 1 });
     await page.getByLabel(/día de la semana/i).selectOption('Lunes');
     await page.getByLabel(/hora de inicio/i).fill('15:00');
     await page.getByLabel(/hora de fin/i).fill('14:00'); // Hora anterior
@@ -91,8 +93,9 @@ test.describe('Creación de horario (e2e)', () => {
   test('cancelar vuelve a la lista sin crear horario', async ({ page }) => {
     await page.goto('/horarios/registro');
 
-    // Seleccionar primer curso disponible
+    // Seleccionar primer curso y aula disponible
     await page.getByLabel(/curso/i).selectOption({ index: 1 });
+    await page.getByLabel(/aula/i).selectOption({ index: 1 });
     await page.getByLabel(/día de la semana/i).selectOption('Lunes');
     await page.getByLabel(/hora de inicio/i).fill('10:00');
     await page.getByLabel(/hora de fin/i).fill('12:00');
