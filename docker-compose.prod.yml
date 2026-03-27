@@ -1,15 +1,15 @@
 services:
   backend:
-    image: ghcr.io/TU_OWNER/academic-ddd-backend:latest
+    image: ghcr.io/josueab/academic-ddd-backend:latest
     env_file: .env.production
     restart: unless-stopped
-    expose:
-      - "3000"
+    ports:
+      - "3000:3000"
     depends_on:
       - postgres
 
   frontend:
-    image: ghcr.io/TU_OWNER/academic-ddd-frontend:latest
+    image: ghcr.io/josueuab/academic-ddd-frontend:latest
     restart: unless-stopped
     expose:
       - "80"

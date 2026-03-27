@@ -73,7 +73,7 @@ jobs:
           file: packages/frontend/Dockerfile
           push: true
           build-args: |
-            VITE_API_BASE=${{ vars.VITE_API_BASE || 'http://localhost:3000' }}
+            VITE_API_BASE=${{ vars.VITE_API_BASE || 'http://18.230.224.188:3000' }}
             VITE_GA_MEASUREMENT_ID=${{ vars.VITE_GA_MEASUREMENT_ID || 'G-WX4JD0120Q' }}
           tags: ${{ steps.meta-frontend.outputs.tags }}
           labels: ${{ steps.meta-frontend.outputs.labels }}
