@@ -198,7 +198,7 @@ export function EditPage() {
                 htmlFor="dayOfWeek"
                 className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300"
               >
-                Dia de la semana
+                Día de la semana
               </label>
               <select
                 id="dayOfWeek"
@@ -207,7 +207,7 @@ export function EditPage() {
                 onChange={(e) => setDayOfWeek(e.target.value)}
                 className="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm hover:border-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-800 dark:text-white dark:placeholder-slate-500 dark:hover:border-slate-500 dark:focus:border-indigo-500 dark:focus:ring-indigo-500"
               >
-                <option value="">Selecciona un dia</option>
+                <option value="">Selecciona un día</option>
                 <option value="Lunes">Lunes</option>
                 <option value="Martes">Martes</option>
                 <option value="Miércoles">Miércoles</option>
