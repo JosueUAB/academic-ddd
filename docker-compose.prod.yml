@@ -17,8 +17,8 @@ services:
       - backend
 
   # Reverse proxy único para cumplir:
-  # - http://54.196.134.117/ -> frontend
-  # - http://54.196.134.117/api/auth/login -> backend POST /auth/login
+  # - http://18.230.224.188/ -> frontend
+  # - http://18.230.224.188/api/auth/login -> backend POST /auth/login
   nginx:
     image: nginx:alpine
     restart: unless-stopped

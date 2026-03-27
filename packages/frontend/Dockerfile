@@ -9,6 +9,9 @@ WORKDIR /app
 ARG VITE_API_BASE=http://localhost:3000
 ENV VITE_API_BASE=$VITE_API_BASE
 
+ARG VITE_GA_MEASUREMENT_ID
+ENV VITE_GA_MEASUREMENT_ID=$VITE_GA_MEASUREMENT_ID
+
 COPY package.json package-lock.json* ./
 COPY packages/frontend/package.json ./packages/frontend/
 
