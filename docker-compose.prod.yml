@@ -1,6 +1,6 @@
 services:
   backend:
-    image: ghcr.io/josueab/academic-ddd-backend:latest
+    image: ghcr.io/josueuab/academic-ddd-backend:latest
     env_file: .env.production
     restart: unless-stopped
     ports:
