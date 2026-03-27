@@ -326,7 +326,7 @@ export function UsuariosPage() {
                     Nombre de Usuario
                     <Input
                       required
-                      placeholder="ej. jperez"
+                      placeholder="ej. jperezz"
                       value={formData.username}
                       onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                     />
