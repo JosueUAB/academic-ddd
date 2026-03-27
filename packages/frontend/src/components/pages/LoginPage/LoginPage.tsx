@@ -23,7 +23,7 @@ export function LoginPage() {
     e.preventDefault();
     setError(null);
     if (!username.trim() || !password) {
-      setError('Usuario y contraseña son obligatorios');
+      setError('El Usuario y contraseña son obligatorios');
       return;
     }
     setLoading(true);

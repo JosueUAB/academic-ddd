@@ -1,6 +1,8 @@
 # Academic DDD — Monorepo
 
 Sistema académico basado en DDD (Domain-Driven Design). Monorepo con backend NestJS + TypeORM/PostgreSQL y frontend React + Vite.
+# ESTUDIANTE: JOSUE ISRAEL ARISTA HUANCA
+
 
 ## Requisitos previos
 
