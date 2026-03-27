@@ -17,6 +17,7 @@ import { UserService } from '../../../contexts/identity-access/users/application
 import { RoleService } from '../../../contexts/identity-access/roles/application/role.service';
 import { Role } from '../../../contexts/identity-access/roles/domain/role.entity';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 
 function toUserResponse(user: User, roles: Role[]) {
   const role = roles.find((r) => r.id === user.roleId);
@@ -34,6 +35,8 @@ type AuthenticatedRequest = Request & {
   };
 };
 
+@ApiTags('Users')
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(
@@ -41,6 +44,7 @@ export class UsersController {
     private readonly roleService: RoleService,
   ) { }
 
+  @ApiOperation({ summary: 'Find all users' })
   @Get()
   async findAll() {
     const users = await this.userService.findAll();
@@ -48,6 +52,7 @@ export class UsersController {
     return users.map((user) => toUserResponse(user, roles));
   }
 
+  @ApiOperation({ summary: 'Get current user profile' })
   @Get('me')
   async findCurrentUser(@Req() req: AuthenticatedRequest) {
     const userId = req.user?.id;
@@ -63,6 +68,7 @@ export class UsersController {
     return toUserResponse(user, [] as Role[]);
   }
 
+  @ApiOperation({ summary: 'Find a user by ID' })
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const user = await this.userService.findById(id);
@@ -71,6 +77,8 @@ export class UsersController {
     return toUserResponse(user, roles);
   }
 
+  @ApiOperation({ summary: 'Create a user' })
+  @ApiBody({ schema: { example: { username: 'johndoe', email: 'john@example.com', roleId: 'uuid', password: 'secretPassword' } } })
   @Post()
   async create(
     @Body() body: {
@@ -85,6 +93,7 @@ export class UsersController {
     return toUserResponse(user, roles);
   }
 
+  @ApiOperation({ summary: 'Update a user' })
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -103,12 +112,15 @@ export class UsersController {
     return toUserResponse(user, roles);
   }
 
+  @ApiOperation({ summary: 'Delete a user' })
   @Delete(':id')
   async delete(@Param('id') id: string) {
     await this.userService.delete(id);
     return { success: true };
   }
 
+  @ApiOperation({ summary: 'Update a user email' })
+  @ApiBody({ schema: { example: { email: 'newemail@example.com' } } })
   @Patch(':id/email')
   async updateEmail(
     @Param('id') id: string,
@@ -119,6 +131,8 @@ export class UsersController {
     return user;
   }
 
+  @ApiOperation({ summary: 'Change current user password' })
+  @ApiBody({ type: ChangePasswordDto })
   @Patch('me')
   async changeMyPassword(
     @Req() req: AuthenticatedRequest,

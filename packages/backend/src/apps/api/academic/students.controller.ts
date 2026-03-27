@@ -12,12 +12,17 @@ import {
 import { StudentService } from '../../../contexts/academic/student/application/student.service';
 import type { StudentSortField } from '../../../contexts/academic/student/domain/student.repository';
 
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+
 const SORT_FIELDS: StudentSortField[] = ['firstName', 'lastName', 'code', 'document', 'birthDate', 'createdAt'];
 
+@ApiTags('Students')
+@ApiBearerAuth()
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentService: StudentService) {}
 
+  @ApiOperation({ summary: 'Find all students' })
   @Get()
   async findAll(
     @Query('page') pageStr?: string,
@@ -40,6 +45,7 @@ export class StudentsController {
     return this.studentService.findAllWithUserInfo();
   }
 
+  @ApiOperation({ summary: 'Find a student by ID' })
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const student = await this.studentService.findByIdWithUserInfo(id);
@@ -47,6 +53,8 @@ export class StudentsController {
     return student;
   }
 
+  @ApiOperation({ summary: 'Create a student' })
+  @ApiBody({ schema: { example: { firstName: 'John', lastName: 'Doe', document: '12345678', birthDate: '2000-01-01', email: 'john@example.com' } } })
   @Post()
   async create(
     @Body()
@@ -61,6 +69,7 @@ export class StudentsController {
     return this.studentService.create(body);
   }
 
+  @ApiOperation({ summary: 'Update a student' })
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -78,6 +87,7 @@ export class StudentsController {
     return student;
   }
 
+  @ApiOperation({ summary: 'Delete a student' })
   @Delete(':id')
   async remove(@Param('id') id: string) {
     const deleted = await this.studentService.delete(id);

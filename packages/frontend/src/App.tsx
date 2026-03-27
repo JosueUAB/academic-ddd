@@ -16,10 +16,12 @@ import {
   RegisterPage as HorariosRegisterPage,
   EditPage as HorariosEditPage,
 } from "./components/pages/HorariosPage";
+import { PageTracker } from './hooks/usePageTracking';
 
 function App() {
   return (
     <BrowserRouter>
+      <PageTracker />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route

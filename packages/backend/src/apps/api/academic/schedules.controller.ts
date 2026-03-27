@@ -12,12 +12,17 @@ import {
 import { ScheduleService } from '../../../contexts/academic/schedule/application/schedule.service';
 import { ScheduleSortField } from '../../../contexts/academic/schedule/domain/schedule.repository';
 
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBody, ApiQuery } from '@nestjs/swagger';
+
 const SORT_FIELDS: ScheduleSortField[] = ['slot', 'createdAt', 'courseName'];
 
+@ApiTags('Schedules')
+@ApiBearerAuth()
 @Controller('schedules')
 export class SchedulesController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
+  @ApiOperation({ summary: 'Find all schedules' })
   @Get()
   async findAll(
     @Query('page') pageStr?: string,
@@ -40,6 +45,7 @@ export class SchedulesController {
     return this.scheduleService.findAllWithCourseInfo();
   }
 
+  @ApiOperation({ summary: 'Find a schedule by ID' })
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const schedule = await this.scheduleService.findById(id);
@@ -47,6 +53,8 @@ export class SchedulesController {
     return schedule;
   }
 
+  @ApiOperation({ summary: 'Create a schedule' })
+  @ApiBody({ schema: { example: { courseId: 'uuid', slot: 'Mon 08:00 - 10:00', classroomId: 'uuid' } } })
   @Post()
   async create(
     @Body() body: { courseId: string; slot: string; classroomId: string },
@@ -54,6 +62,7 @@ export class SchedulesController {
     return this.scheduleService.create(body);
   }
 
+  @ApiOperation({ summary: 'Update a schedule' })
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -65,6 +74,7 @@ export class SchedulesController {
     return schedule;
   }
 
+  @ApiOperation({ summary: 'Delete a schedule' })
   @Delete(':id')
   async remove(@Param('id') id: string) {
     const deleted = await this.scheduleService.delete(id);

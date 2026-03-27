@@ -6,13 +6,18 @@ import { Public } from '../../../contexts/identity-access/auth/infrastructure/pu
 const JWT_COOKIE_NAME = process.env.JWT_COOKIE_NAME ?? 'access_token';
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN ?? undefined;
 const COOKIE_SAMESITE = process.env.COOKIE_SAMESITE ?? 'lax';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+
 const COOKIE_SECURE_ENV = process.env.COOKIE_SECURE ?? undefined;
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Public()
+  @ApiOperation({ summary: 'Login user' })
+  @ApiBody({ schema: { example: { username: 'admin', password: 'password' } } })
   @Post('login')
   async login(
     @Body() body: { username: string; password: string },

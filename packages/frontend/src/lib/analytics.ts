@@ -1,36 +1,18 @@
 import mixpanel from 'mixpanel-browser';
+import ReactGA from 'react-ga4';
 
-const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined;
+const GA_MEASUREMENT_ID = (import.meta.env.VITE_GA_ID || import.meta.env.VITE_GA_MEASUREMENT_ID) as string | undefined;
 const MIXPANEL_TOKEN = import.meta.env.VITE_MIXPANEL_TOKEN as string | undefined;
 
 let mixpanelInited = false;
-
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-    dataLayer?: unknown[];
-  }
-}
+let gaInited = false;
 
 export function initAnalytics() {
   if (typeof window === 'undefined') return;
 
-  if (GA_MEASUREMENT_ID && !window.gtag) {
-    window.dataLayer = window.dataLayer || [];
-    function gtag(...args: any[]) {
-      window.dataLayer!.push(args);
-    }
-    window.gtag = gtag;
-
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-    document.head.appendChild(script);
-
-    gtag('js', new Date());
-    gtag('config', GA_MEASUREMENT_ID, {
-      send_page_view: false,
-    });
+  if (GA_MEASUREMENT_ID && !gaInited) {
+    ReactGA.initialize(GA_MEASUREMENT_ID);
+    gaInited = true;
   }
 
   if (MIXPANEL_TOKEN && !mixpanelInited) {
@@ -45,12 +27,8 @@ export function initAnalytics() {
 export function trackPageView(path: string, title?: string) {
   if (typeof window === 'undefined') return;
 
-  if (GA_MEASUREMENT_ID && window.gtag) {
-    window.gtag('event', 'page_view', {
-      page_path: path,
-      page_title: title,
-      send_to: GA_MEASUREMENT_ID,
-    });
+  if (GA_MEASUREMENT_ID && gaInited) {
+    ReactGA.send({ hitType: 'pageview', page: path, title: title });
   }
 
   if (MIXPANEL_TOKEN && mixpanelInited) {
@@ -67,11 +45,8 @@ export function trackEvent(
 ) {
   if (typeof window === 'undefined') return;
 
-  if (GA_MEASUREMENT_ID && window.gtag) {
-    window.gtag('event', action, {
-      ...params,
-      send_to: GA_MEASUREMENT_ID,
-    });
+  if (GA_MEASUREMENT_ID && gaInited) {
+    ReactGA.event(action, params as any);
   }
 
   if (MIXPANEL_TOKEN && mixpanelInited) {
