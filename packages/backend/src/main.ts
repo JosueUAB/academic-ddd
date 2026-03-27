@@ -12,7 +12,15 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(
     helmet({
-      contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false,
+      crossOriginEmbedderPolicy: false,
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          styleSrc: ["'self'", "'unsafe-inline'"],
+          scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+          imgSrc: ["'self'", 'data:', 'validator.swagger.io'],
+        },
+      },
     }),
   );
   app.useGlobalPipes(

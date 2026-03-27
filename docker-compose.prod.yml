@@ -9,6 +9,11 @@ services:
       - postgres
 
   frontend:
+    build:
+      context: .
+      dockerfile: ./packages/frontend/Dockerfile
+      args:
+        - VITE_GA_ID=G-WX4JD0120Q
     image: ghcr.io/josueuab/academic-ddd-frontend:latest
     restart: unless-stopped
     expose:
