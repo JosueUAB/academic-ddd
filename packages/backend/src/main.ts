@@ -47,7 +47,14 @@ async function bootstrap() {
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+  SwaggerModule.setup('api/docs', app, document, {
+    explorer: true,
+    swaggerOptions: {
+      filter: true,
+      showRequestDuration: true,
+    },
+    customSiteTitle: 'Academic DDD API',
+  });
 
   const port = process.env.PORT ?? 3000;
   await app.listen(port, '0.0.0.0');
