@@ -15,9 +15,14 @@ export function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  if (typeof window !== 'undefined') {
-    trackPageView('/login', 'Login');
-  }
+  import { useEffect } from 'react';
+
+  // Solo trazar la vista inicial, no en cada render
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      trackPageView('/login', 'Login');
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

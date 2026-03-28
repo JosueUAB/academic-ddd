@@ -53,24 +53,28 @@ export function trackEvent(
 
   const { category = 'General', action = eventName, label, value, ...rest } = properties || {};
 
-  if (GA_MEASUREMENT_ID && gaInited) {
-    ReactGA.event({
-      category,
-      action,
-      label,
-      value,
-      ...rest
-    });
-  }
+  try {
+    if (GA_MEASUREMENT_ID && gaInited) {
+      ReactGA.event({
+        category,
+        action,
+        label,
+        value,
+        ...rest
+      });
+    }
 
-  if (MIXPANEL_TOKEN && mixpanelInited) {
-    mixpanel.track(eventName, {
-      category,
-      action,
-      label,
-      value,
-      ...rest
-    });
+    if (MIXPANEL_TOKEN && mixpanelInited) {
+      mixpanel.track(eventName, {
+        category,
+        action,
+        label,
+        value,
+        ...rest
+      });
+    }
+  } catch (error) {
+    console.error('Error tracking analytics event', error);
   }
 }
 
