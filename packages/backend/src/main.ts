@@ -20,6 +20,7 @@ async function bootstrap() {
           styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com"],
           scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdnjs.cloudflare.com"],
           imgSrc: ["'self'", 'data:', 'validator.swagger.io'],
+          upgradeInsecureRequests: null,
         },
       },
     }),
