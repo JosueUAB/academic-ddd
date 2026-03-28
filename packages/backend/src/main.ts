@@ -32,15 +32,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  app.enableCors({
-    origin: [
-      'http://localhost:5173',
-      'http://18.230.224.188',
-      'http://18.230.224.188:3000'
-    ],
-    
-    credentials: true,
-  });
+  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle('Academic DDD API')
