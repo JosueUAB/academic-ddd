@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MainLayout } from '../../templates/MainLayout';
 import { Button } from '../../atoms/Button';
@@ -14,8 +14,6 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  import { useEffect } from 'react';
 
   // Solo trazar la vista inicial, no en cada render
   useEffect(() => {
