@@ -12,6 +12,9 @@ ENV VITE_API_BASE=$VITE_API_BASE
 ARG VITE_GA_ID
 ENV VITE_GA_ID=$VITE_GA_ID
 
+ARG VITE_MIXPANEL_TOKEN
+ENV VITE_MIXPANEL_TOKEN=$VITE_MIXPANEL_TOKEN
+
 COPY package.json package-lock.json* ./
 COPY packages/frontend/package.json ./packages/frontend/
 
