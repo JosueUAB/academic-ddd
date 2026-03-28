@@ -40,17 +40,37 @@ export function trackPageView(path: string, title?: string) {
 }
 
 export function trackEvent(
-  action: string,
-  params?: Record<string, string | number | boolean | null | undefined>,
+  eventName: string,
+  properties?: {
+    category?: string;
+    action?: string;
+    label?: string;
+    value?: number;
+    [key: string]: any;
+  }
 ) {
   if (typeof window === 'undefined') return;
 
+  const { category = 'General', action = eventName, label, value, ...rest } = properties || {};
+
   if (GA_MEASUREMENT_ID && gaInited) {
-    ReactGA.event(action, params as any);
+    ReactGA.event({
+      category,
+      action,
+      label,
+      value,
+      ...rest
+    });
   }
 
   if (MIXPANEL_TOKEN && mixpanelInited) {
-    mixpanel.track(action, params ?? {});
+    mixpanel.track(eventName, {
+      category,
+      action,
+      label,
+      value,
+      ...rest
+    });
   }
 }
 

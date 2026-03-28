@@ -5,6 +5,7 @@ import { Input } from '../../atoms/Input';
 import { DataTable, type DataTableColumn } from '../../organisms/DataTable';
 import { apiRequest } from '../../../lib/api';
 import type { User } from '../../../entities/user';
+import { trackEvent } from '../../../lib/analytics';
 import { IconUsers, IconClose } from '../../../assets/icons'; // Reusing existing icons!
 
 type Role = { id: string; name: string };
@@ -60,6 +61,10 @@ export function UsuariosPage() {
   };
 
   const handleOpenAdd = () => {
+    trackEvent('click_nuevo_usuario', {
+      category: 'Gestión de Usuarios',
+      label: 'Botón Principal Superior'
+    });
     setIsEditing(false);
     setFormData({ id: '', username: '', email: '', roleId: roles[0]?.id || '', password: '' });
     setIsModalOpen(true);
@@ -82,6 +87,14 @@ export function UsuariosPage() {
       setSaving(true);
       await apiRequest(`/users/${userToDelete.id}`, { method: 'DELETE' });
       setUsers((prev) => prev.filter((u) => u.id !== userToDelete.id));
+      
+      const roleName = userToDelete.role?.name || (userToDelete as any).roleId || 'Desconocido';
+      trackEvent('eliminar_usuario', {
+        category: 'Gestión de Usuarios',
+        action: 'Usuario Eliminado',
+        label: `Rol eliminado: ${roleName}`
+      });
+
       addToast(`Usuario ${userToDelete.username} eliminado con éxito`, 'success');
       setIsDeleteModalOpen(false);
       setUserToDelete(null);
@@ -110,6 +123,14 @@ export function UsuariosPage() {
           method: 'PATCH',
           body: JSON.stringify(payload),
         });
+        
+        const roleAssigned = roles.find(r => r.id === formData.roleId)?.name || 'Desconocido';
+        trackEvent('editar_usuario', {
+          category: 'Gestión de Usuarios',
+          action: 'Usuario Editado Exitosamente',
+          label: `Rol asignado: ${roleAssigned}`
+        });
+
         setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
         addToast('Usuario actualizado exitosamente', 'success');
       } else {
@@ -122,6 +143,14 @@ export function UsuariosPage() {
           method: 'POST',
           body: JSON.stringify(payload),
         });
+        
+        const roleAssigned = roles.find(r => r.id === formData.roleId)?.name || 'Desconocido';
+        trackEvent('crear_usuario_exito', {
+          category: 'Gestión de Usuarios',
+          action: 'Usuario Creado Exitosamente',
+          label: `Rol asignado: ${roleAssigned}`
+        });
+
         setUsers((prev) => [...prev, created]);
         addToast('Usuario registrado exitosamente', 'success');
       }
